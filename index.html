@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yusuf Varvani | Portfolio</title>
+    <style>
+        /* CSS Variables for easy color theme changes */
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #06b6d4;
+            --accent-hover: #0891b2;
+            --font-main: 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Home Section --- */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+            background: radial-gradient(circle at top right, #1e293b, transparent 40%);
+            gap: 4rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(6, 182, 212, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--surface-color);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
+        }
+
+        /* --- Global Section Styles --- */
+        .section-container {
+            padding: 6rem 10%;
+            background-color: var(--bg-color);
+        }
+
+        .section-container:nth-child(even) {
+            background-color: #0b1121; /* Slightly darker background for alternating sections */
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--accent-color);
+        }
+
+        /* --- Experience Section Styles --- */
+        #experience-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .experience-card {
+            background-color: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color); /* Timeline accent */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            
+            /* Animation states */
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s, box-shadow 0.3s;
+        }
+
+        .experience-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .experience-card.show:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.15);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .experience-title h4 {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .experience-date {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: var(--accent-color);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .experience-desc {
+            color: var(--text-secondary);
+        }
+
+        /* --- Projects Section Styles --- */
+        #project-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .project-card {
+            display: flex;
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            
+            opacity: 0;
+            transform: translateY(60px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s, box-shadow 0.3s;
+        }
+
+        .project-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card.show:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.15);
+        }
+
+        .project-img {
+            flex: 1;
+            min-height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-content {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            #home { 
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 8rem;
+                padding-bottom: 4rem;
+                gap: 2rem;
+            }
+            .hero-text p { margin: 0 auto 2rem auto; }
+            .btn-group { justify-content: center; }
+            .hero-image img { max-width: 250px; }
+            
+            .hero-text h1 { font-size: 3rem; }
+            
+            .experience-header { flex-direction: column; gap: 0.5rem; }
+            .experience-date { align-self: flex-start; }
+
+            .project-card { flex-direction: column; }
+            .project-img { min-height: 250px; }
+            .project-content { padding: 2rem; }
+            .section-container { padding-left: 5%; padding-right: 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo">Yusuf's <span>Portfolio.</span></a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="hero-text">
+            <h1>Hi, I'm <span>Yusuf</span><br></h1>
+            <p>
+                Recent graduate from Mechanical Engineering at Toronto Metropolitan University with a strong focus on automated manufacturing, mechatronics, and sustainable design. I bridge the gap between complex mechanical systems and software integration, from CAD prototyping to PLC ladder logic. Interested in the work below? Feel free to reach out or explore my projects!
+            </p>
+            <div class="btn-group">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="mailto:y.k.varvani@gmail.com" class="btn btn-outline">Contact Me</a>
+                <a href="https://www.linkedin.com/in/yusufv/" class="btn btn-outline" style="background-color: transparent; border: none; padding: 0.8rem 1rem;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="height: 25px; width: 25px;">
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-image">
+            <img src="profile.jpg" alt="Yusuf Varvani Profile">
+        </div>
+    </section>
+
+    <section id="experience" class="section-container">
+        <h2 class="section-title">Work <span>Experience</span></h2>
+        <div id="experience-container"></div>
+    </section>
+
+    <section id="projects" class="section-container">
+        <h2 class="section-title">Recent <span>Projects</span></h2>
+        <div id="project-container"></div>
+    </section>
+
+    <script>
+        /* ==========================================================
+           EXPERIENCE DATA ARRAY
+           Add new jobs here, just like you add projects!
+           ========================================================== */
+        const myExperience = [
+            {
+                role: "Academic Assistant",
+                company: "Toronto Metropolitan University",
+                date: "2026",
+                description: "Assisting professors in managing and marking students assignments in Engineering Graphical Communications. Duties include evaluating SolidWorks drawings, evaluating hand drawn depictions of 3D objects, and assisting students where required."
+            },
+            {
+                role: "Intern",
+                company: "Voyant Beauty Inc.",
+                date: "2024 - 2025",
+                description: "Completed a 14-month internship focused on driving continuous improvement. Conducted extensive operational data analysis, performed internal audits for Health Canada, GMP and FDA compliance, and executed technical surveys to optimize manufacturing floor efficiency. Led strategic management meetings to present detailed business cases, successfully obtaining executive approval for projects."
+            },
+        ];
+
+        /* ==========================================================
+           PROJECT DATA ARRAY
+           ========================================================== */
+        const myProjects = [
+            {
+                title: "Personal CarPlay System",
+                description: "Using RaspberryPi, developed a custom CarPlay system for enhanced in-car connectivity and user experience. Utilized knowledge of embedded systems and software integration to create a seamless interface between the vehicle's infotainment system and mobile devices, enabling features such as navigation, media control, and hands-free communication.",
+                image: "project1.jpg" 
+            },
+            {
+                title: "Slot Car Racing",
+                description: "Using CNC machine and 3D printing, a small team of five designed and iterated several cars for racing up a 30 degree incline. The project involved designing the cars for optimal speed and traction, as well as critical thinking for innovative designs. The project showcased our ability to apply engineering principles to a fun and competitive environment, and resulted in a successful outcome.",
+                image: "project2.png"
+            },
+            {
+                title: "Pneumatic Tire-Lifting Machine",
+                description: "Engineered a pneumatic tire-changing mechanism integrating a rotary actuator. Designed the control system using PLC ladder logic on the PLCFiddle platform, ensuring precise timing, safety interlocks, and reliable mechanical operation.",
+                image: "project3.png"
+            },
+            {
+                title: " GNCTR | Concrete Toboggan",
+                description: "Leveraging CAD expertise to design robust, load-bearing structure engineered for 5-person occupancy. Analyzed stress resistance, and optimized the design for weight reduction while maintaining structural integrity. Led the manufacturing process, overseeing the assembly and testing of the toboggan to ensure it met competition standards.",
+                image: "project4.jpg"
+            },
+            {
+                title: "BattleBots",
+                description: "Designed and built a competitive BattleBot, utilizing advanced CAD modeling for optimal weight distribution and durability. Integrated pneumatic systems for weapon actuation, and implemented custom control algorithms to enhance maneuverability and combat performance.",
+                image: "project5.jpg"
+            },
+            {
+                title: "Voyant Beauty Inc. | Process Automation",
+                description: "Led the design and implementation of an app that allows managers to gain insight on shop floor batching operations. Data was also being shown in real time on a dashboard, allowing for quick decision making and improved efficiency. The app was built using a no-code solution for rapid development, and ease in transfer of ownership.",
+                image: ""
+            }
+        ];
+
+        /* --- Build Experience HTML --- */
+        const expContainer = document.getElementById('experience-container');
+        myExperience.forEach(job => {
+            const card = document.createElement('div');
+            card.className = 'experience-card element-to-animate';
+
+            card.innerHTML = `
+                <div class="experience-header">
+                    <div class="experience-title">
+                        <h3>${job.role}</h3>
+                        <h4>${job.company}</h4>
+                    </div>
+                    <div class="experience-date">${job.date}</div>
+                </div>
+                <p class="experience-desc">${job.description}</p>
+            `;
+            expContainer.appendChild(card);
+        });
+
+        /* --- Build Projects HTML --- */
+        const projContainer = document.getElementById('project-container');
+        myProjects.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'project-card element-to-animate';
+
+            card.innerHTML = `
+                <div class="project-img" style="background-image: url('${project.image}')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-desc">${project.description}</p>
+                </div>
+            `;
+            projContainer.appendChild(card);
+        });
+
+        /* ==========================================================
+           SCROLL ANIMATION LOGIC
+           Now handles both Experience and Project cards!
+           ========================================================== */
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.35 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        }, observerOptions);
+
+        // Tell the observer to watch everything with the 'element-to-animate' class
+        const elementsToAnimate = document.querySelectorAll('.element-to-animate');
+        elementsToAnimate.forEach(el => {
+            observer.observe(el);
+        });
+
+        /* Smooth scrolling */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
